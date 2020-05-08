@@ -1,0 +1,29 @@
+// VS Code(GB2312), MinGW, g++编译
+#include <Windows.h>
+#include <stdio.h>
+
+// 这里就是1.txt文件的内容
+
+int main()
+{
+    // C:fopen, C++:fstream, API:CreateFile
+    CHAR lpFileDateBuffer[4096];
+    HANDLE hFile;
+    DWORD dwReadedSize;
+    ZeroMemory(lpFileDateBuffer, 4096);
+
+    hFile = CreateFile(TEXT("1.txt"), 
+        GENERIC_READ, 
+        FILE_SHARE_READ, 
+        NULL, 
+        OPEN_EXISTING, 
+        FILE_ATTRIBUTE_NORMAL, 
+        NULL);
+    ReadFile(hFile, lpFileDateBuffer, 4096, &dwReadedSize, NULL);
+    CloseHandle(hFile);
+
+    printf("%s\n", lpFileDateBuffer);
+
+    system("pause");
+    return 0;
+}
